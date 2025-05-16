@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: aws-sqs-demo
+  info:
+    build:
+      creator: Mert Pehlivan
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sqs-demo
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  cloud:
+    aws:
+      endpoint: http://localhost:4566
+      region:
+        static: us-east-1
+        auto: false
+      stack:
+        auto: false
+      credentials:
+        instance-profile: false
+        access-key: test
+        secret-key: test
+      sqs:
+        userSignUp:
+          source: http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/UserSignUp.fifo
+          deadletter: http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/UserSignUpDeadLetter.fifo
+
+logging:
+  level:
+    io:
+      awspring:
+        cloud=debug:
